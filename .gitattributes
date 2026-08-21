@@ -1,0 +1,51 @@
+# 文本统一规范化：仓库内统一存 LF，工作区按平台检出（Windows 检出 CRLF）
+* text=auto
+
+# Unity 序列化资源（YAML，按文本处理，便于 diff/merge）
+*.unity text
+*.prefab text
+*.asset text
+*.mat text
+*.meta text
+*.controller text
+*.anim text
+*.mask text
+*.physicMaterial text
+*.physicsMaterial2D text
+*.renderTexture text
+*.spriteatlas text
+*.overrideController text
+*.guiskin text
+*.fontsettings text
+*.cubemap text
+*.flare text
+*.lighting text
+*.terrainlayer text
+*.mixer text
+*.playable text
+*.asmdef text
+*.rsp text
+
+# 二进制资源（不进行文本 diff）
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.tga binary
+*.tif binary
+*.tiff binary
+*.psd binary
+*.fbx binary
+*.wav binary
+*.mp3 binary
+*.ogg binary
+*.mp4 binary
+*.mov binary
+*.dll binary
+*.exe binary
+*.lib binary
+*.a binary
+*.so binary
+*.jar binary
+*.zip binary
+*.unitypackage binary
