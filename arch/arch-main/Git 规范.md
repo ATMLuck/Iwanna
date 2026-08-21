@@ -28,11 +28,10 @@ git commit -m "chore: 初始化项目骨架"
 git push
 ```
 
-**提交前先做两件 Unity 配置（否则会导致多人合并冲突）**：
+**提交前先做 Unity 配置（否则会导致多人合并冲突）**：
 - `Edit > Project Settings > Editor`：
-  - `Version Control Mode` → **Visible Meta Files**
   - `Asset Serialization` → **Force Text**
-- 这两个设置保证 `.meta` 文件被纳入版本控制、场景/预制体以文本存储，可正常 diff/merge。
+- 这个设置保证 `.meta` 文件被纳入版本控制、场景/预制体以文本存储，可正常 diff/merge。
 
 ### 1.1 仓库初始结构
 
@@ -65,7 +64,7 @@ git push
 3. `dev` 稳定后通过 **Pull Request** 合并到 `main`（GitHub 给 `main` 设**分支保护**，仅 A 能合并），打 tag 发版。
 
 **合并方式**：
-- `dev`：直接 push（7 人小团队、一周周期，PR 流程偏重）。
+- `dev`：直接 push。
 - `main`：GitHub 分支保护 + Pull Request（仅 A 合并，保证发版稳定）。
 
 ```bash
