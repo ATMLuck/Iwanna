@@ -159,6 +159,3 @@ git push
 *.dll binary
 *.exe binary
 ```
-
-- 作用：让 Git 知道哪些文件是文本（可正常 diff/merge）、哪些是二进制；统一 `LF` 换行，避免 Windows/Linux 换行符差异导致的冲突。
-
