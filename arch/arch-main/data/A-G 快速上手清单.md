@@ -24,8 +24,7 @@ status: 正式版 v1.0
 - **首先**：
   1. 建仓库 + `dev` 分支；Unity 建工程 `UnityProject/`。
   2. 写 `Singleton<T>` 基类 + `EventCenter` + `GameEvent` 枚举。
-  3. 在 `MainMenu` 场景搭 `Bootstrap`，挂各 Manager。
-  4. 写 `GameManager` 状态机骨架：`LoadLevel` / `RestartLevel` / `ResumeGame` / `PauseGame` / `BackToMainMenu`。
+  3. 写 `GameManager` 状态机骨架：`LoadLevel` / `RestartLevel` / `ResumeGame` / `PauseGame` / `BackToMainMenu`。
 - **依赖**：调用 `B:ProgressManager`（解锁/校验）、`C:UIManager`（弹 UI）；订阅 `E` 组件的死亡/存档/通关事件。
 - **交付**：`GameManager`、`EventCenter`、`Bootstrap`、发版、测试报告。
 
@@ -48,6 +47,7 @@ status: 正式版 v1.0
   1. 搭 `MainMenu` 场景（主界面 / 选关 / 设置 / 团队介绍）。
   2. 写 `UIManager`：`ShowHUD` / `ShowPauseMenu` / `HidePauseMenu` / `ShowClearHint` / `ShowCompleteUI`。
   3. 准备占位美术（`Art/Environment`、`Art/Animation`）。
+  4. 在 `MainMenu` 场景搭 `Bootstrap`，挂各 Manager。
 - **依赖**：设置页调 `B:ProgressManager`；选关调 `A:GameManager.LoadLevel`；HUD 订阅 `DeathCountChanged`/`TimerTick`。
 - **交付**：`MainMenu` 场景、UI Prefab、`UIManager`、美术资源。
 
@@ -59,6 +59,7 @@ status: 正式版 v1.0
   1. 写 `PlayerController`：`GetAxisRaw` 移动、二段跳、朝向、J 键射击、`Die()`/`Respawn()`。
   2. 写 `Bullet`（哑弹）：直线飞行、撞墙销毁、超时销毁。
   3. 做玩家死亡动画 + 最后一帧 Animation Event → `OnDeathAnimationFinished()`。
+  4. 注意在Start()中通过GameManager.Instance.RegisterPlayer(this)将自生出生点的位置信息上传给GameManager
 - **依赖**：`Die`/`Respawn` 被 `A:GameManager` 调用；子弹被 `F` 的按钮检测。
 - **交付**：`Player` Prefab、`Bullet`、`PlayerController`。
 
