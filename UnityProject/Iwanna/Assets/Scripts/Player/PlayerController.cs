@@ -2,13 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public static class InputDef
-{
-    public const string Horizontal = "Horizontal";
-    public const string Jump = "Jump";
-    public const KeyCode Shoot = KeyCode.J;
-}
-
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -39,7 +32,6 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
 
-    // 面朝向：1为右，-1为左
     private int facingDir = 1;
 
     void Start()
@@ -51,15 +43,17 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (isDead) return; 
+        if (isDead) return;
+
         // 1. 地面检测
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
         if (isGrounded)
         {
             jumpCount = 0;
         }
+
         // 2. 跳跃
-        if (Input.GetButtonDown(InputDef.Jump))
+        if (Input.GetKeyDown(InputDef.Jump))
         {
             if (jumpCount == 0)
             {
@@ -72,11 +66,13 @@ public class PlayerController : MonoBehaviour
                 jumpCount++;
             }
         }
+
         // 3. 开枪
         if (Input.GetKeyDown(InputDef.Shoot))
         {
             Shoot();
         }
+
         // 4. 虚空死亡
         if (transform.position.y < deathY)
         {
@@ -86,8 +82,9 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isDead) return; 
+        if (isDead) return;
 
+        // 水平移动
         float dirX = Input.GetAxisRaw(InputDef.Horizontal);
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
@@ -95,9 +92,12 @@ public class PlayerController : MonoBehaviour
         {
             facingDir = (int)Mathf.Sign(dirX);
             transform.localScale = new Vector3(facingDir, 1, 1);
-
             anim.SetBool("running", true);
-            firePoint.localPosition = new Vector3(Mathf.Abs(firePoint.localPosition.x) * facingDir, firePoint.localPosition.y, 0f);
+            firePoint.localPosition = new Vector3(
+                Mathf.Abs(firePoint.localPosition.x) * facingDir,
+                firePoint.localPosition.y,
+                0f
+            );
         }
         else
         {
