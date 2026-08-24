@@ -16,6 +16,7 @@ sysinfo.txt
 # Visual Studio / Rider 生成物
 *.csproj
 *.sln
+*.slnx
 *.suo
 *.user
 *.userprefs
@@ -26,6 +27,7 @@ sysinfo.txt
 *.mdb
 *.opendb
 *.VC.db
+.claude/
 .vs/
 .idea/
 .vscode/

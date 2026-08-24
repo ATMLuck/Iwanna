@@ -20,18 +20,25 @@ public class GameManager : Singleton<GameManager>
     }
 //===============================字段===================================================
     PlayerController _player;
-    int _currentLevel;//当前关卡号
-    float _elapsedTime;//本关累计时长（秒)
-    int _deathCount;//死亡次数
-    Vector3 _lastSavePoint;//重生位置
+    int _currentLevel = 1;//当前关卡号
+    float _elapsedTime = 0;//本关累计时长（秒)
+    int _deathCount = 0;//死亡次数
+    Vector3 _lastSavePoint = Vector3.zero;//重生位置
 
     // ---- 属性（public 只读） ----
-    public float ElapsedTime => _elapsedTime;
-    public int DeathCount => _deathCount;
+    public float ElapsedTime
+    {
+        get{return _elapsedTime;}
+    }
+    public int DeathCount
+    {
+        get{return _deathCount;}
+    }
 //===============================功能实现===============================================
     
     void OnPlayerDeath(object arg)
     {
+        _deathCount++;
         
     }
     void OnSavePoint(object arg)
@@ -50,6 +57,10 @@ public class GameManager : Singleton<GameManager>
 
 //===============================接口===================================================
     public void LoadLevel(int n)
+    {
+    
+    }
+    public void LoadNextLevel()
     {
     
     }
