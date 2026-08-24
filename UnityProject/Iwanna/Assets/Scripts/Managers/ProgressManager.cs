@@ -3,7 +3,6 @@ using UnityEngine;
 public class ProgressData
 {
     public int totalLevels;
-    public int[] unlockedLevels;
     public float musicVolume;
     public float sfxVolume;
     public int bgmIndex;
@@ -15,31 +14,28 @@ public class ProgressManager : Singleton<ProgressManager>
     private const int DefaultTotalLevels = 3;
     private const float DefaultVolume = 0.8f;
     private const int DefaultBGMIndex = 0;
-    public int[] unlockedLevels = new int[DefaultTotalLevels]{1, 0, 0};
+
     private ProgressData _data;
     private string _filePath;
     private bool _isLoaded;
 
-    private ProgressData _defaultData = new ProgressData()
-    {
-        totalLevels = DefaultTotalLevels,
-        unlockedLevels = new int[]{1},
-        musicVolume = DefaultVolume,
-        sfxVolume = DefaultVolume,
-        bgmIndex = DefaultBGMIndex
-    };
     protected override void Awake()
     {
         base.Awake();
         if (Instance != this)
             return;
+
+        _filePath = Path.Combine(Application.persistentDataPath, "config.json");
     }
 
     public bool IsLevelUnlocked(int level)
     {
         // 检测关卡是否非法，否则直接返回false
         // 检查unlockedLevels 是否包含目标编号
-        return true;
+        EnsureLoaded();
+        if (level < 0 || level >= _data.totalLevels)
+            return false;
+        return Array.IndexOf(_data.unlockedLevels, level) >= 0;
     }
     public void UnlockLevel(int level)
     {
@@ -51,67 +47,103 @@ public class ProgressManager : Singleton<ProgressManager>
         // 加载游戏进度，需要处理如下Json文件异常情况
         //文件是否为空，JSON文件是否损坏，反序列结果为null等
         //如果Json文件异常，则回复默认配置，并推送警告
+        if (!_isLoaded)
+        {
+            return;
+        }
     }
 
-    public int TotalLevels {     
-        get{
-        EnsureLoaded();
-        return _data.totalLevels;
+    public int TotalLevels
+    {
+        get
+        {
+            EnsureLoaded();
+            return _data.totalLevels;
         }
-     }
-    public float MusicVolume {
+    }
+    public float MusicVolume
+    {
         get
         {
             EnsureLoaded();
             return _data.musicVolume;
-        } set
+        }
+        set
         {
             EnsureLoaded();
             float newVolume = Mathf.Clamp(value, 0f, 1f);
-            if(Mathf.Approximately(newVolume, _data.musicVolume))
+            if (Mathf.Approximately(newVolume, _data.musicVolume))
                 return;
             _data.musicVolume = newVolume;
             Save();
-        }}
-    public float SFXVolume {
+        }
+    }
+    public float NormalizeVolume(float volume)
+    {
+        // 规范化音量值，确保其在0到1之间
+        if(float.IsNaN(volume)||float.IsInfinity(volume))
+            return DefaultVolume;
+        return MathF.Clamp01(volume);
+    }
+    public float SFXVolume
+    {
         get
         {
             EnsureLoaded();
             return _data.sfxVolume;
-        } set
+        }
+        set
         {
             EnsureLoaded();
             float newVolume = Mathf.Clamp(value, 0f, 1f);
-            if(Mathf.Abs(newVolume - _data.sfxVolume) > 0.01f)
+            if (Mathf.Abs(newVolume - _data.sfxVolume) > 0.01f)
                 return;
             _data.sfxVolume = newVolume;
             Save();
-        }}
-    public int BgmIndex {
+        }
+    }
+    public int BgmIndex
+    {
         get
         {
             EnsureLoaded();
             return _data.bgmIndex;
-        } set
+        }
+        set
         {
             EnsureLoaded();
-            _data.bgmIndex = value;
+            int newIndex = Mathf.Max(0, value);
+            _data.bgmIndex = newIndex;
+            if (newIndex != _data.bgmIndex)
+                return;
             Save();
-        }}
+        }
+    }
 
-    private ProgressData CreateDefaultData() {      
-        return _defaultData; 
-        }
-    private bool ValidateAndRepairData() { 
-        
-        return true; 
-        
-        }
-    private void EnsureLoaded() { }
+    private ProgressData CreateDefaultData()
+    {
+        return _defaultData;
+    }
+    private bool ValidateAndRepairData()
+    {
+
+        return true;
+
+    }
+    private void EnsureLoaded()
+    {
+        // 确保进度数据已加载，如果未加载则调用Load方法加载数据
+        if (!_isLoaded)
+            Load();
+    }
     private void Save()
     {
         // 保存进度数据到文件或数据库
-        //数据没有实际变化，不保存
-        //不在Update中调用
+        // 数据没有实际变化，不保存
+        // 不在Update中调用
+
+        if (!_isLoaded || _data == null)
+            return;
+        // 实现保存数据的逻辑，例如将数据写入Json文件
     }
 }

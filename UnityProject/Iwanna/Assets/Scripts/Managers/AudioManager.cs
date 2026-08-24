@@ -15,7 +15,6 @@ public class AudioManager : Singleton<AudioManager>
     {
         if(_bgmSource == null || _bgmList == null || _bgmList.Length==0)
         return;
-        index=Mathf.Clamp(index)
         //播放音乐
         SetMusicVolume(ProgressManager.Instance.MusicVolume);
     }
