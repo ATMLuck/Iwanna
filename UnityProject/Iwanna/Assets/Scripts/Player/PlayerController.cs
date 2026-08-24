@@ -2,13 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public static class InputDef
-{
-    public const string Horizontal = "Horizontal";
-    public const string Jump = "Jump";
-    public const KeyCode Shoot = KeyCode.J;
-}
-
 public enum PlayerState
 {
     Idle,
