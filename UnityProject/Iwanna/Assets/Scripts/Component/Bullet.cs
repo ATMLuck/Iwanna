@@ -2,16 +2,13 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float bulletSpeed = 15f;
-    public float lifetime = 1.5f;
+    public float speed = 15f;
+    public float lifetime = 2f;
     private Rigidbody2D rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
-        rb.velocity = transform.right * bulletSpeed;
-
         Destroy(gameObject, lifetime);
     }
 
