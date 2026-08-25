@@ -49,6 +49,9 @@ public class PlayerController : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         CurrentState = PlayerState.Idle;
+
+        // 注册到 GameManager
+        GameManager.Instance.RegisterPlayer(this);
     }
 
     void Update()
@@ -61,7 +64,7 @@ public class PlayerController : MonoBehaviour
             jumpCount = 0;
         }
 
-        if (Input.GetButtonDown(InputDef.Jump))
+        if (Input.GetKeyDown(InputDef.Jump))
         {
             if (jumpCount == 0)
             {
@@ -150,14 +153,18 @@ public class PlayerController : MonoBehaviour
         isDead = true;
         rb.bodyType = RigidbodyType2D.Static;
         anim.SetTrigger("death");
-        StartCoroutine(RestartAfterDelay());
     }
 
-    public IEnumerator RestartAfterDelay()
+    public void OnDeathAnimationFinished()
     {
-        yield return new WaitForSeconds(2f);
-        int idx = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(idx);
+        GameManager.Instance.OnPlayerDeathAnimationFinished();
+    }
+
+    public void Respawn(Vector3 respawnPosition)
+    {
+        transform.position = respawnPosition;
+        isDead = false;
+        rb.bodyType = RigidbodyType2D.Dynamic;
     }
 
     void OnDrawGizmosSelected()
