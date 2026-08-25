@@ -15,6 +15,7 @@ public class GameManager : Singleton<GameManager>
     bool _isDead = false;
     bool _loading = false;
     bool _inLevel = false;
+    bool _isCompleting = false;
 
     // ---- 属性（public 只读） ----
     public float ElapsedTime
@@ -41,7 +42,7 @@ public class GameManager : Singleton<GameManager>
     // Update is called once per frame
     void Update()
     {
-        if(_inLevel&&_loading==false)
+        if(_inLevel&&_loading==false&&Time.timeScale>0)
         {
             _elapsedTime += Time.deltaTime;
             EventCenter.Broadcast(GameEvent.TimerTick, ElapsedTime);
@@ -64,6 +65,8 @@ public class GameManager : Singleton<GameManager>
     }
     void OnLevelComplete(object arg)
     {
+        if(_isCompleting) return;
+        _isCompleting = true;
         Time.timeScale = 0f;
         if(_currentLevel>=ProgressManager.Instance.TotalLevels)
         {
@@ -94,6 +97,7 @@ public class GameManager : Singleton<GameManager>
     {
         if(_loading) return;
         _loading = true;
+        _isCompleting = false;
         Time.timeScale = 1f;
         //关卡校验
         if(ProgressManager.Instance.IsLevelUnlocked(n)==false)
@@ -113,6 +117,7 @@ public class GameManager : Singleton<GameManager>
     }
     public void LoadNextLevel()
     {
+        _isCompleting = false;
         LoadLevel(_currentLevel+1);
     }
     public void RegisterPlayer(PlayerController player)
@@ -147,6 +152,7 @@ public class GameManager : Singleton<GameManager>
     }
     public void BackToMainMenu()
     {
+        _isCompleting =false;
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
         _inLevel = false;
