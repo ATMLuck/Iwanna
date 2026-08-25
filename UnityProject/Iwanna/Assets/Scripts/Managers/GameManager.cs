@@ -56,7 +56,7 @@ public class GameManager : Singleton<GameManager>
         _deathCount++;
         EventCenter.Broadcast(GameEvent.DeathCountChanged,DeathCount);
         //feat:音频->AudioManager
-        _player.Die();
+        if (_player != null) _player.Die();
     }
     void OnSavePoint(object arg)
     {
@@ -153,7 +153,7 @@ public class GameManager : Singleton<GameManager>
     }
     public void OnPlayerDeathAnimationFinished()
     {
-        _player.Respawn(_lastSavePoint);
+        if (_player != null) _player.Respawn(_lastSavePoint);
         _isDead = false;
         EventCenter.Broadcast(GameEvent.PlayerRespawned);
         Time.timeScale = 1f;
