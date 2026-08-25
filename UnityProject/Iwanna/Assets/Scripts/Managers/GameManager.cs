@@ -11,6 +11,8 @@ public class GameManager : Singleton<GameManager>
     float _elapsedTime = 0;//本关累计时长（秒)
     int _deathCount = 0;//死亡次数
     Vector3 _lastSavePoint = Vector3.zero;//重生位置
+    [Header("通关文字显示时长")]
+    [SerializeField] float displayed = 2f;
     // ------------标记------------
     bool _isDead = false;
     bool _loading = false;
@@ -76,7 +78,7 @@ public class GameManager : Singleton<GameManager>
         {
             UIManager.Instance.ShowClearHint();
             ProgressManager.Instance.UnlockLevel(_currentLevel+1);
-            StartCoroutine(PauseLogicCoroutine(2f));
+            StartCoroutine(PauseLogicCoroutine(displayed));
         }
         
     }
