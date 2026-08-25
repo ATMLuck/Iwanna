@@ -108,8 +108,6 @@ public class GameManager : Singleton<GameManager>
             _currentLevel = n;
             ResetLevelState();
             SceneManager.LoadScene("Level_"+n.ToString("00"));
-            _loading = false;
-            _inLevel = true;
         }
     
     }
@@ -122,6 +120,8 @@ public class GameManager : Singleton<GameManager>
         _player = player;
         _lastSavePoint = player.gameObject.transform.position;
         _isDead = false;
+        _loading = false;
+        _inLevel = true;
         ResetLevelState();
     }
     public void RestartLevel()
