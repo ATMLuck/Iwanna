@@ -50,7 +50,6 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         CurrentState = PlayerState.Idle;
 
-        // 注册到 GameManager
         GameManager.Instance.RegisterPlayer(this);
     }
 
@@ -85,6 +84,7 @@ public class PlayerController : MonoBehaviour
 
         if (transform.position.y < deathY)
         {
+            EventCenter.Broadcast(GameEvent.PlayerDeath);
             Die();
         }
 
@@ -157,6 +157,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnDeathAnimationFinished()
     {
+        EventCenter.Broadcast(GameEvent.PlayerRespawned);
         GameManager.Instance.OnPlayerDeathAnimationFinished();
     }
 
