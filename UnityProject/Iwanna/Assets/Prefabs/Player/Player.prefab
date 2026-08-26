@@ -74,10 +74,10 @@ GameObject:
   - component: {fileID: 2011173481362397306}
   - component: {fileID: 6050350534255339038}
   - component: {fileID: 7720694498691561195}
-  - component: {fileID: 1497604628448876261}
   - component: {fileID: 7115639537223479764}
+  - component: {fileID: 2258424917852431025}
   m_Layer: 6
-  m_Name: player
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +149,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &6050350534255339038
@@ -224,32 +224,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.27, y: 0.28999996}
   m_EdgeRadius: 0
---- !u!114 &1497604628448876261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6617933453673598497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bab151eb31c7f6d48a2399ccf85e1bc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 7
-  jumpForce: 14
-  doubleJumpForce: 12
-  bulletSpeed: 15
-  canDoubleJump: 1
-  isGrounded: 0
-  groundCheck: {fileID: 5002250249265179121}
-  checkRadius: 0.25
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  deathY: -12
-  bulletPrefab: {fileID: 8697666633280226473, guid: 39dd04ab51772c641b2c9c975b8b4f39, type: 3}
-  firePoint: {fileID: 5431183540136669517}
 --- !u!95 &7115639537223479764
 Animator:
   serializedVersion: 5
@@ -260,10 +234,10 @@ Animator:
   m_GameObject: {fileID: 6617933453673598497}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8cd74864e469f984cb95db7adb2b2398, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8157db44569466641a82c73b60310802, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -271,3 +245,29 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2258424917852431025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6617933453673598497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0632a20b2356654ca96104d9edff756, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 7
+  jumpForce: 8
+  doubleJumpForce: 6
+  bulletSpeed: 15
+  canDoubleJump: 1
+  isGrounded: 0
+  groundCheck: {fileID: 5002250249265179121}
+  checkRadius: 0.25
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  deathY: -12
+  bulletPrefab: {fileID: 0}
+  firePoint: {fileID: 0}
