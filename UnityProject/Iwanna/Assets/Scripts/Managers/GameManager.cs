@@ -164,6 +164,7 @@ public class GameManager : Singleton<GameManager>
     {
         _isCompleting =false;
         Time.timeScale = 1f;
+        UIManager.Instance.HidePauseMenu();
         SceneManager.LoadScene("MainMenu");
         //AudioManager.Instance.PlayBGM((int)BGM.MainMenu);
         _inLevel = false;
