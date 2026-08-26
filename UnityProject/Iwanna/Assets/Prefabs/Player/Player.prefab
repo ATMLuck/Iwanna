@@ -215,7 +215,7 @@ MonoBehaviour:
   checkRadius: 0.25
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 64
   deathY: -12
   bulletPrefab: {fileID: 8697666633280226473, guid: 39dd04ab51772c641b2c9c975b8b4f39, type: 3}
   firePoint: {fileID: 104332541957494519}

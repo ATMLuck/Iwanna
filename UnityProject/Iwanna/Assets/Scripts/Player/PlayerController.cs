@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
     public Transform groundCheck;
     public float checkRadius = 0.25f;
-    public LayerMask groundLayer;
+    private LayerMask groundLayer;
 
     [Header("死亡设置")]
     public float deathY = -12f;
@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+
+        groundLayer = LayerMask.GetMask("Ground");
 
         GameManager.Instance.RegisterPlayer(this);
     }
@@ -75,6 +77,11 @@ public class PlayerController : MonoBehaviour
         {
             Shoot();
             anim.SetTrigger("AttackTrigger");
+        }
+
+        if (Input.GetKeyDown(InputDef.Pause))
+        {
+            GameManager.Instance.PauseGame();
         }
 
         if (transform.position.y < deathY)
