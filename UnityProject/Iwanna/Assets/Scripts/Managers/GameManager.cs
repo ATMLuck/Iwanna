@@ -1,7 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement; 
+// enum BGM
+// {
+//     MainMenu = 0,
+//     Level = 1
+// }
 
 public class GameManager : Singleton<GameManager>
 {
@@ -59,7 +65,7 @@ public class GameManager : Singleton<GameManager>
         _isDead = true;
         _deathCount++;
         EventCenter.Broadcast(GameEvent.DeathCountChanged,DeathCount);
-        //feat:音频->AudioManager
+        AudioManager.Instance.PlaySFX(SFXType.PlayerDeath);
         if (_player != null) _player.Die();
     }
     void OnSavePoint(object arg)
@@ -115,6 +121,7 @@ public class GameManager : Singleton<GameManager>
             _currentLevel = n;
             ResetLevelState();
             SceneManager.LoadScene("Level_"+n.ToString("00"));
+            //AudioManager.Instance.PlayBGM((int)BGM.Level);
         }
     
     }
@@ -158,6 +165,7 @@ public class GameManager : Singleton<GameManager>
         _isCompleting =false;
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
+        //AudioManager.Instance.PlayBGM((int)BGM.MainMenu);
         _inLevel = false;
     }
     public void OnPlayerDeathAnimationFinished()
