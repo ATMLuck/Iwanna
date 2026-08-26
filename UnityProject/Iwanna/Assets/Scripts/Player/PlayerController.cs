@@ -2,13 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum PlayerState
-{
-    Idle,
-    Running,
-    Jumping
-}
-
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -41,14 +34,11 @@ public class PlayerController : MonoBehaviour
 
     private int facingDir = 1;
 
-    public PlayerState CurrentState { get; private set; }
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        CurrentState = PlayerState.Idle;
 
         GameManager.Instance.RegisterPlayer(this);
     }
@@ -58,6 +48,8 @@ public class PlayerController : MonoBehaviour
         if (isDead) return;
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
+        anim.SetBool("isGrounded", isGrounded);
+
         if (isGrounded)
         {
             jumpCount = 0;
@@ -68,11 +60,13 @@ public class PlayerController : MonoBehaviour
             if (jumpCount == 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                anim.SetTrigger("JumpTrigger");
                 jumpCount++;
             }
             else if (jumpCount == 1 && canDoubleJump)
             {
                 rb.velocity = new Vector2(rb.velocity.x, doubleJumpForce);
+                anim.SetTrigger("DoubleJumpTrigger");
                 jumpCount++;
             }
         }
@@ -80,6 +74,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(InputDef.Shoot))
         {
             Shoot();
+            anim.SetTrigger("AttackTrigger");
         }
 
         if (transform.position.y < deathY)
@@ -114,24 +109,6 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("running", false);
         }
-
-        UpdatePlayerState(dirX);
-    }
-
-    private void UpdatePlayerState(float dirX)
-    {
-        if (!isGrounded)
-        {
-            CurrentState = PlayerState.Jumping;
-        }
-        else if (dirX != 0)
-        {
-            CurrentState = PlayerState.Running;
-        }
-        else
-        {
-            CurrentState = PlayerState.Idle;
-        }
     }
 
     private void Shoot()
@@ -157,7 +134,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnDeathAnimationFinished()
     {
-        EventCenter.Broadcast(GameEvent.PlayerRespawned);
         GameManager.Instance.OnPlayerDeathAnimationFinished();
     }
 
@@ -166,6 +142,17 @@ public class PlayerController : MonoBehaviour
         transform.position = respawnPosition;
         isDead = false;
         rb.bodyType = RigidbodyType2D.Dynamic;
+
+        anim.ResetTrigger("death");
+        anim.ResetTrigger("JumpTrigger");
+        anim.ResetTrigger("DoubleJumpTrigger");
+        anim.ResetTrigger("AttackTrigger");
+
+        anim.SetBool("running", false);
+        anim.SetBool("isGrounded", true);
+
+        anim.Play("Idle", 0, 0f);
+        anim.Update(0);
     }
 
     void OnDrawGizmosSelected()
