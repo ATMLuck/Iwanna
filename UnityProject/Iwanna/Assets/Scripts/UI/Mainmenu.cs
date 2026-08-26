@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     {
         // 括号里的"Game"要换成你自己游戏关卡场景的名字，并且这个场景必须已经加到
         // File → Build Settings 的 Scenes In Build 列表里，否则会报错找不到场景
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Level_04");
     }
 
     // 绑定到"退出游戏"按钮的 OnClick 事件
