@@ -5,45 +5,45 @@ using UnityEngine.UI;
 using static System.Net.Mime.MediaTypeNames;
 
 /// <summary>
-/// È«¾Ö³£×¤ UI ¹ÜÀíÆ÷ (¸ºÔğ¹Ø¿¨ÄÚµş¼Ó UI£ºHUD¡¢ÔİÍ£Ãæ°å¡¢Í¨¹ØÌáÊ¾¡¢ÖÕ¼«Í¨¹ØUI)
-/// ¼Ü¹¹·Ö¹¤£ºC ½ÇÉ« (UI + ÃÀÊõ)
+/// å…¨å±€å¸¸é©» UI ç®¡ç†å™¨ (è´Ÿè´£å…³å¡å†…å åŠ  UIï¼šHUDã€æš‚åœé¢æ¿ã€é€šå…³æç¤ºã€ç»ˆæé€šå…³UI)
+/// æ¶æ„åˆ†å·¥ï¼šC è§’è‰² (UI + ç¾æœ¯)
 /// </summary>
 public class UIManager : Singleton<UIManager>
 {
-    [Header("UI Ãæ°åÒıÓÃ (¹ÒÔØÔÚ Canvas ÏÂ)")]
+    [Header("UI é¢æ¿å¼•ç”¨ (æŒ‚è½½åœ¨ Canvas ä¸‹)")]
     [SerializeField] private GameObject hudPanel;
     [SerializeField] private GameObject pauseMenuPanel;
     [SerializeField] private GameObject clearHintPanel;
     [SerializeField] private GameObject completeUIPanel;
 
-    [Header("HUD ¿Ø¼ş (TextMeshPro)")]
+    [Header("HUD æ§ä»¶ (TextMeshPro)")]
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI deathCountText;
 
-    [Header("HUD ¿Ø¼ş (Legacy Text ±¸ÓÃ)")]
+    [Header("HUD æ§ä»¶ (Legacy Text å¤‡ç”¨)")]
     [SerializeField] private UnityEngine.UI.Text timerTextLegacy;
     [SerializeField] private UnityEngine.UI.Text deathCountTextLegacy;
 
     protected override void Awake()
     {
         base.Awake();
-
+        if (Instance != this) return;
         EventCenter.Subscribe(GameEvent.TimerTick, OnTimerTick);
         EventCenter.Subscribe(GameEvent.DeathCountChanged, OnDeathCountChanged);
     }
 
     private void Start()
     {
-        // ³õÊ¼»¯Ãæ°åÄ¬ÈÏÏÔÒş×´Ì¬
+        // åˆå§‹åŒ–é¢æ¿é»˜è®¤æ˜¾éšçŠ¶æ€
         HidePauseMenu();
         if (clearHintPanel != null) clearHintPanel.SetActive(false);
         if (completeUIPanel != null) completeUIPanel.SetActive(false);
     }
 
-    #region ¼Ü¹¹ÎÄµµ¹æ¶¨µÄ¶ÔÍâ½Ó¿Ú (ÓÉ GameManager µ÷ÓÃ)
+    #region æ¶æ„æ–‡æ¡£è§„å®šçš„å¯¹å¤–æ¥å£ (ç”± GameManager è°ƒç”¨)
 
     /// <summary>
-    /// ÏÔÊ¾ÓÒÉÏ½Ç HUD (½ø¹Ø¿¨ / »Ö¸´ÓÎÏ·)
+    /// æ˜¾ç¤ºå³ä¸Šè§’ HUD (è¿›å…³å¡ / æ¢å¤æ¸¸æˆ)
     /// </summary>
     public void ShowHUD()
     {
@@ -52,7 +52,7 @@ public class UIManager : Singleton<UIManager>
     }
 
     /// <summary>
-    /// Òş²ØÓÒÉÏ½Ç HUD (ÔİÍ£ / ÇĞ³¡¾°)
+    /// éšè—å³ä¸Šè§’ HUD (æš‚åœ / åˆ‡åœºæ™¯)
     /// </summary>
     public void HideHUD()
     {
@@ -61,7 +61,7 @@ public class UIManager : Singleton<UIManager>
     }
 
     /// <summary>
-    /// ÏÔÊ¾ÔİÍ£Ãæ°å (GameManager.PauseGame() µ÷ÓÃ)
+    /// æ˜¾ç¤ºæš‚åœé¢æ¿ (GameManager.PauseGame() è°ƒç”¨)
     /// </summary>
     public void ShowPauseMenu()
     {
@@ -70,7 +70,7 @@ public class UIManager : Singleton<UIManager>
     }
 
     /// <summary>
-    /// Òş²ØÔİÍ£Ãæ°å (GameManager.ResumeGame() µ÷ÓÃ)
+    /// éšè—æš‚åœé¢æ¿ (GameManager.ResumeGame() è°ƒç”¨)
     /// </summary>
     public void HidePauseMenu()
     {
@@ -79,7 +79,7 @@ public class UIManager : Singleton<UIManager>
     }
 
     /// <summary>
-    /// ÏÔÊ¾"Í¨¹Ø£¡"¼ò¶ÌÌáÊ¾ (·Ç×îºóÒ»¹ØÍ¨¹ØÊ±ÓÉ GameManager µ÷ÓÃ)
+    /// æ˜¾ç¤º"é€šå…³ï¼"ç®€çŸ­æç¤º (éæœ€åä¸€å…³é€šå…³æ—¶ç”± GameManager è°ƒç”¨)
     /// </summary>
     public void ShowClearHint()
     {
@@ -88,7 +88,7 @@ public class UIManager : Singleton<UIManager>
     }
 
     /// <summary>
-    /// ÏÔÊ¾Í¨¹Ø UI (×îºóÒ»¹ØÍ¨¹Ø£¬º¬·µ»ØÖ÷²Ëµ¥°´Å¥)
+    /// æ˜¾ç¤ºé€šå…³ UI (æœ€åä¸€å…³é€šå…³ï¼Œå«è¿”å›ä¸»èœå•æŒ‰é’®)
     /// </summary>
     public void ShowCompleteUI()
     {
@@ -99,10 +99,10 @@ public class UIManager : Singleton<UIManager>
 
     #endregion
 
-    #region ÊÂ¼ş¹ã²¥»Øµ÷
+    #region äº‹ä»¶å¹¿æ’­å›è°ƒ
 
     /// <summary>
-    /// Ë¢ĞÂ¼ÆÊ±Æ÷ (ÏìÓ¦ GameEvent.TimerTick ÊÂ¼ş)
+    /// åˆ·æ–°è®¡æ—¶å™¨ (å“åº” GameEvent.TimerTick äº‹ä»¶)
     /// </summary>
     private void OnTimerTick(object arg)
     {
@@ -120,7 +120,7 @@ public class UIManager : Singleton<UIManager>
     }
 
     /// <summary>
-    /// Ë¢ĞÂËÀÍö´ÎÊı (ÏìÓ¦ GameEvent.DeathCountChanged ÊÂ¼ş)
+    /// åˆ·æ–°æ­»äº¡æ¬¡æ•° (å“åº” GameEvent.DeathCountChanged äº‹ä»¶)
     /// </summary>
     private void OnDeathCountChanged(object arg)
     {

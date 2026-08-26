@@ -32,6 +32,7 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
+        if (Instance != this) return;
         EventCenter.Subscribe(GameEvent.PlayerDeath, OnPlayerDeath);
         EventCenter.Subscribe(GameEvent.SavePointReached, OnSavePoint);
         EventCenter.Subscribe(GameEvent.LevelComplete,OnLevelComplete);
