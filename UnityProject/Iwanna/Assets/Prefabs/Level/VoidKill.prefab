@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9064960060106207613}
   - component: {fileID: 1250147119714622948}
   - component: {fileID: 2261147512544108326}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: VoidKill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
