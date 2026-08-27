@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Hive_2
+  m_Name: Ground
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 1011669299, guid: f16e3fe389d642a4ab38f77a6ea6c893, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4d1ad0eb629e3374994a3f98f2b454e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
