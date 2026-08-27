@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
     private LayerMask groundLayer;
 
     [Header("死亡设置")]
-    public float deathY = -12f;
     private bool isDead = false;
 
     [Header("射击参数")]
@@ -84,11 +83,6 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.PauseGame();
         }
 
-        if (transform.position.y < deathY)
-        {
-            EventCenter.Broadcast(GameEvent.PlayerDeath);
-            Die();
-        }
 
         if (firePoint != null)
         {
