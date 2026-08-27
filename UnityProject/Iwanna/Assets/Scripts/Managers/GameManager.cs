@@ -16,6 +16,8 @@ public class GameManager : Singleton<GameManager>
     int _currentLevel = 1;//当前关卡号
     float _elapsedTime = 0;//本关累计时长（秒)
     int _deathCount = 0;//死亡次数
+    int _BGMIndex;//当前BGM序号
+    int _MainMenuBGMIndex;//主菜单BGM序号
     Vector3 _lastSavePoint = Vector3.zero;//重生位置
     [Header("通关文字显示时长")]
     [SerializeField] float displayed = 2f;
@@ -46,6 +48,9 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         ProgressManager.Instance.Load();
+        _BGMIndex = ProgressManager.Instance.BgmIndex;
+        _MainMenuBGMIndex = _BGMIndex;
+        AudioManager.Instance.PlayBGM(_BGMIndex);
     }
 
     // Update is called once per frame
@@ -121,7 +126,8 @@ public class GameManager : Singleton<GameManager>
             _currentLevel = n;
             ResetLevelState();
             SceneManager.LoadScene("Level_"+n.ToString("00"));
-            //AudioManager.Instance.PlayBGM((int)BGM.Level);
+            _BGMIndex++;
+            AudioManager.Instance.PlayBGM(_BGMIndex);
         }
     
     }
@@ -166,7 +172,7 @@ public class GameManager : Singleton<GameManager>
         Time.timeScale = 1f;
         UIManager.Instance.HidePauseMenu();
         SceneManager.LoadScene("MainMenu");
-        //AudioManager.Instance.PlayBGM((int)BGM.MainMenu);
+        AudioManager.Instance.PlayBGM(_MainMenuBGMIndex);
         _inLevel = false;
     }
     public void OnPlayerDeathAnimationFinished()

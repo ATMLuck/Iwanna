@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3910282852402600892}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.011, y: -0.3, z: 8.454077}
+  m_LocalPosition: {x: -0.013, y: -0.247, z: 8.454077}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -159,7 +159,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.005436957, y: -0.00453075}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -170,7 +170,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6, y: 0.5}
+  m_Size: {x: 0.19766521, y: 0.4728151}
   m_EdgeRadius: 0
 --- !u!95 &2446750265998601854
 Animator:
@@ -213,10 +213,6 @@ MonoBehaviour:
   isGrounded: 0
   groundCheck: {fileID: 2812290490259864512}
   checkRadius: 0.25
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  deathY: -12
   bulletPrefab: {fileID: 8697666633280226473, guid: 39dd04ab51772c641b2c9c975b8b4f39, type: 3}
   firePoint: {fileID: 104332541957494519}
 --- !u!212 &1242219683047472734
@@ -260,14 +256,14 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -2057552225, guid: b9d3d597ad8e3454ca16dfe6ee09bc9d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.64, y: 0.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
