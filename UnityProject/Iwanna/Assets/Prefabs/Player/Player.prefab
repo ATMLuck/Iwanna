@@ -116,7 +116,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e2e1e4f270cb89545b2e936cd9b9c2b8, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -136,7 +136,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 8122379921935193900}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e2e1e4f270cb89545b2e936cd9b9c2b8, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
