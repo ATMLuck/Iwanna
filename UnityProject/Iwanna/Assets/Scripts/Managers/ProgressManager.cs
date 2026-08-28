@@ -19,7 +19,7 @@ public class ProgressData
 
 public class ProgressManager : Singleton<ProgressManager>
 {
-    private const int DefaultTotalLevels = 3;
+    private const int DefaultTotalLevels = 4;
     private const float DefaultVolume = 0.8f;
     private const int DefaultBGMIndex = 0;
     private ProgressData _data;

@@ -12196,6 +12196,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5278478124653972062, guid: 53a78e8e9ffedf74a82b3ea8b746cf59, type: 3}
+      propertyPath: _jumpClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 912e9492265f15f47b36b9961a31b234, type: 3}
+    - target: {fileID: 5278478124653972062, guid: 53a78e8e9ffedf74a82b3ea8b746cf59, type: 3}
+      propertyPath: _shootClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 42fe8d853f11d334bbe1e5fa04660deb, type: 3}
+    - target: {fileID: 5278478124653972062, guid: 53a78e8e9ffedf74a82b3ea8b746cf59, type: 3}
+      propertyPath: _playerDeathClip
+      value: 
+      objectReference: {fileID: 8300000, guid: aebd81420534e104c8e6e9ee5e5b2ec9, type: 3}
     - target: {fileID: 7834952897453989564, guid: 53a78e8e9ffedf74a82b3ea8b746cf59, type: 3}
       propertyPath: m_Name
       value: Bootstrap

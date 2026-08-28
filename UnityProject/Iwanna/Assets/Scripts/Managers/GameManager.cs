@@ -70,7 +70,6 @@ public class GameManager : Singleton<GameManager>
         _isDead = true;
         _deathCount++;
         EventCenter.Broadcast(GameEvent.DeathCountChanged,DeathCount);
-        AudioManager.Instance.PlaySFX(SFXType.PlayerDeath);
         if (_player != null) _player.Die();
     }
     void OnSavePoint(object arg)

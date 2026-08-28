@@ -63,12 +63,14 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 anim.SetTrigger("JumpTrigger");
                 jumpCount++;
+                AudioManager.Instance.PlaySFX(SFXType.Jump);
             }
             else if (jumpCount == 1 && canDoubleJump)
             {
                 rb.velocity = new Vector2(rb.velocity.x, doubleJumpForce);
                 anim.SetTrigger("DoubleJumpTrigger");
                 jumpCount++;
+                AudioManager.Instance.PlaySFX(SFXType.Jump);
             }
         }
 
@@ -122,6 +124,7 @@ public class PlayerController : MonoBehaviour
             {
                 bulletRb.velocity = new Vector2(facingDir * bulletSpeed, 0f);
             }
+            AudioManager.Instance.PlaySFX(SFXType.Shoot);
         }
     }
 
@@ -131,6 +134,7 @@ public class PlayerController : MonoBehaviour
         isDead = true;
         rb.bodyType = RigidbodyType2D.Static;
         anim.SetTrigger("death");
+        AudioManager.Instance.PlaySFX(SFXType.PlayerDeath);
     }
 
     public void OnDeathAnimationFinished()
