@@ -128,6 +128,7 @@ public class GameManager : Singleton<GameManager>
             SceneManager.LoadScene("Level_"+n.ToString("00"));
             _BGMIndex++;
             AudioManager.Instance.PlayBGM(_BGMIndex);
+            UIManager.Instance.ShowHUD();
         }
     
     }
