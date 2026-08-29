@@ -26,6 +26,7 @@ public class FallingSpike : MonoBehaviour
 
     private void Restore(object arg)
     {
+        rb.bodyType = RigidbodyType2D.Static;
         transform.position=Position;
     }
 }

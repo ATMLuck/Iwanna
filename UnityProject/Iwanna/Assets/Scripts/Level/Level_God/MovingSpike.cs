@@ -26,6 +26,7 @@ public class MovingSpike : MonoBehaviour
 
     private void Restore(object arg)
     {
+        rb.velocity=new Vector2(0, rb.velocity.y);
         transform.position = Position;
     }
 }
