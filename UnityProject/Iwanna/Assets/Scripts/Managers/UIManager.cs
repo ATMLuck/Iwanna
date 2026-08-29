@@ -47,8 +47,12 @@ public class UIManager : Singleton<UIManager>
     /// </summary>
     public void ShowHUD()
     {
+        
         if (hudPanel != null)
+        {
             hudPanel.SetActive(true);
+        }
+            
     }
 
     /// <summary>
@@ -86,15 +90,24 @@ public class UIManager : Singleton<UIManager>
         if (clearHintPanel != null)
             clearHintPanel.SetActive(true);
     }
+    public void HideClearHint()
+    {
+        if (clearHintPanel != null)
+            clearHintPanel.SetActive(false);
+    }
 
     /// <summary>
     /// 显示通关 UI (最后一关通关，含返回主菜单按钮)
     /// </summary>
     public void ShowCompleteUI()
     {
-        HideHUD();
         if (completeUIPanel != null)
             completeUIPanel.SetActive(true);
+    }
+    public void HideCompleteUI()
+    {
+        if (completeUIPanel != null)
+            completeUIPanel.SetActive(false);
     }
 
     #endregion

@@ -308,7 +308,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1706126977
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: -2
   m_Sprite: {fileID: 1568108835, guid: 975c5e8c3bb24774b9dff06ab59d9a5c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -634,7 +634,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 968249961
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 2128146722, guid: 0c9410a357098164c8c59c24973af014, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7574,7 +7574,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1706126977
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -10180,7 +10180,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 968249961
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 2128146722, guid: 0c9410a357098164c8c59c24973af014, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -10690,7 +10690,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1706126977
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: -2
   m_Sprite: {fileID: 959029721, guid: 2a10db4bda4e7804b8ef5e1504e85b93, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -10903,7 +10903,8 @@ GameObject:
   - component: {fileID: 1940478395}
   - component: {fileID: 1940478399}
   - component: {fileID: 1940478400}
-  m_Layer: 0
+  - component: {fileID: 1940478401}
+  m_Layer: 9
   m_Name: Moving_Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11019,7 +11020,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1706126977
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 1923006833, guid: 2a10db4bda4e7804b8ef5e1504e85b93, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -11075,6 +11076,59 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTrigger: 0
+--- !u!60 &1940478401
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940478394}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: e2e1e4f270cb89545b2e936cd9b9c2b8, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.859375, y: 1.40625}
+    newSize: {x: 0.859375, y: 1.40625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.18436004, y: 0.701348}
+      - {x: -0.36892265, y: 0.33948097}
+      - {x: -0.4140625, y: -0.703125}
+      - {x: 0.18011926, y: -0.7103516}
+      - {x: 0.4097075, y: -0.44410133}
+      - {x: 0.36139148, y: 0.3079709}
+      - {x: 0.25939888, y: 0.5029097}
+      - {x: 0.054915383, y: 0.70345265}
+  m_UseDelaunayMesh: 0
 --- !u!1001 &1978216559
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11223,7 +11277,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1706126977
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: -2
   m_Sprite: {fileID: 457599166, guid: 975c5e8c3bb24774b9dff06ab59d9a5c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

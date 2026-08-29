@@ -125,11 +125,19 @@ public class GameManager : Singleton<GameManager>
             _currentLevel = n;
             ResetLevelState();
             SceneManager.LoadScene("Level_"+n.ToString("00"));
-            _BGMIndex++;
-            AudioManager.Instance.PlayBGM(_BGMIndex);
-            UIManager.Instance.ShowHUD();
+            StartCoroutine(LevelInit(0.3f));
         }
     
+    }
+    IEnumerator LevelInit(float seconds)
+    {
+        yield return new WaitForSecondsRealtime(seconds);
+        _BGMIndex++;
+        AudioManager.Instance.PlayBGM(_BGMIndex);
+        UIManager.Instance.HideClearHint();
+        UIManager.Instance.HideCompleteUI();
+        EventCenter.Broadcast(GameEvent.DeathCountChanged,DeathCount);
+        UIManager.Instance.ShowHUD();
     }
     public void LoadNextLevel()
     {
