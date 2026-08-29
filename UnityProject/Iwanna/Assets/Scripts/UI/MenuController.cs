@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,9 +13,49 @@ public class MenuController : MonoBehaviour
     [Header("关卡按钮列表 (按顺序拖入：第0个对应第1关，第1个对应第2关，以此类推)")]
     public Button[] levelButtons;
 
+    [Header("锁定关卡图标")]
+    [SerializeField] private Sprite lockedLevelSprite;
+    private Sprite _normalLevelSprite;
+
+    [Header("音量滑动条")]
+    [SerializeField] private Slider musicVolumeSlider;
+    [SerializeField] private Slider sfxVolumeSlider;
+
     void Start()
     {
         if (levelSelectPanel != null) levelSelectPanel.SetActive(false);
+        InitVolumeSliders();
+    }
+
+    /// <summary>
+    /// 初始化音量滑动条：用已保存的音量刷新滑动条并应用到 AudioManager
+    /// </summary>
+    private void InitVolumeSliders()
+    {
+        if (ProgressManager.Instance == null) return;
+
+        float musicVolume = ProgressManager.Instance.MusicVolume;
+        float sfxVolume = ProgressManager.Instance.SFXVolume;
+
+        if (musicVolumeSlider != null)
+            musicVolumeSlider.SetValueWithoutNotify(musicVolume);
+        if (sfxVolumeSlider != null)
+            sfxVolumeSlider.SetValueWithoutNotify(sfxVolume);
+
+        AudioManager.Instance.SetMusicVolume(musicVolume);
+        AudioManager.Instance.SetSFXVolume(sfxVolume);
+    }
+
+    public void OnMusicVolumeChanged(float value)
+    {
+        ProgressManager.Instance.MusicVolume = value;
+        AudioManager.Instance.SetMusicVolume(value);
+    }
+
+    public void OnSFXVolumeChanged(float value)
+    {
+        ProgressManager.Instance.SFXVolume = value;
+        AudioManager.Instance.SetSFXVolume(value);
     }
 
     public void OnStartClicked()
@@ -47,7 +88,11 @@ public class MenuController : MonoBehaviour
 
     private void RefreshLevelButtons()
     {
-        if (levelButtons == null) return;
+        if (levelButtons == null || levelButtons.Length == 0) return;
+
+        // 缓存默认关卡图标，用于锁定/解锁状态切换时恢复
+        if (_normalLevelSprite == null && levelButtons[0] != null && levelButtons[0].image != null)
+            _normalLevelSprite = levelButtons[0].image.sprite;
 
         for (int i = 0; i < levelButtons.Length; i++)
         {
@@ -56,6 +101,14 @@ public class MenuController : MonoBehaviour
             int levelNumber = i + 1;
             bool unlocked = ProgressManager.Instance.IsLevelUnlocked(levelNumber);
             levelButtons[i].interactable = unlocked;
+
+            Image bg = levelButtons[i].image;
+            if (bg != null)
+                bg.sprite = unlocked ? _normalLevelSprite : lockedLevelSprite;
+
+            TextMeshProUGUI numberText = levelButtons[i].GetComponentInChildren<TextMeshProUGUI>(true);
+            if (numberText != null)
+                numberText.gameObject.SetActive(unlocked);
         }
     }
 }
