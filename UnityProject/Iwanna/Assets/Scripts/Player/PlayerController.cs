@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (isDead) return;
+        if (Time.timeScale == 0f) return;   // 暂停时不响应输入
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
         anim.SetBool("isGrounded", isGrounded);
@@ -79,12 +80,6 @@ public class PlayerController : MonoBehaviour
             Shoot();
             anim.SetTrigger("AttackTrigger");
         }
-
-        if (Input.GetKeyDown(InputDef.Pause))
-        {
-            GameManager.Instance.PauseGame();
-        }
-
 
         if (firePoint != null)
         {

@@ -1,6 +1,8 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -28,8 +30,46 @@ public class UIManager : Singleton<UIManager>
     {
         base.Awake();
         if (Instance != this) return;
+        EnsureEventSystem();
+        SceneManager.sceneLoaded += OnSceneLoaded;
         EventCenter.Subscribe(GameEvent.TimerTick, OnTimerTick);
         EventCenter.Subscribe(GameEvent.DeathCountChanged, OnDeathCountChanged);
+    }
+
+    /// <summary>
+    /// 保证场景中存在常驻 EventSystem，否则 UI 按钮无法响应点击
+    /// </summary>
+    private void EnsureEventSystem()
+    {
+        var existing = FindObjectOfType<EventSystem>();
+        if (existing != null && existing.gameObject.scene.name == "DontDestroyOnLoad")
+            return;
+
+        if (existing != null)
+        {
+            DontDestroyOnLoad(existing.gameObject);
+            return;
+        }
+
+        var go = new GameObject("EventSystem");
+        go.AddComponent<EventSystem>();
+        go.AddComponent<StandaloneInputModule>();
+        DontDestroyOnLoad(go);
+    }
+
+    /// <summary>
+    /// 切换场景后清理场景里新生成的 EventSystem，只保留常驻的那一个
+    /// </summary>
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        var eventSystems = FindObjectsOfType<EventSystem>();
+        if (eventSystems.Length <= 1) return;
+
+        foreach (var es in eventSystems)
+        {
+            if (es.gameObject.scene.name != "DontDestroyOnLoad")
+                Destroy(es.gameObject);
+        }
     }
 
     private void Start()
