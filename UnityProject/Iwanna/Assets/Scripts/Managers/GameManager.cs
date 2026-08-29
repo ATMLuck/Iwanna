@@ -136,6 +136,7 @@ public class GameManager : Singleton<GameManager>
         AudioManager.Instance.PlayBGM(_BGMIndex);
         UIManager.Instance.HideClearHint();
         UIManager.Instance.HideCompleteUI();
+        UIManager.Instance.HidePauseMenu();
         EventCenter.Broadcast(GameEvent.DeathCountChanged,DeathCount);
         UIManager.Instance.ShowHUD();
     }
@@ -157,6 +158,11 @@ public class GameManager : Singleton<GameManager>
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        UIManager.Instance.HideClearHint();
+        UIManager.Instance.HideCompleteUI();
+        UIManager.Instance.HidePauseMenu();
+        EventCenter.Broadcast(GameEvent.DeathCountChanged,DeathCount);
+        UIManager.Instance.ShowHUD();
     }
     public void ResumeGame()
     {
