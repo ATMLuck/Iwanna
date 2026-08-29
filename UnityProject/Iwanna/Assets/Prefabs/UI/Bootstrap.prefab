@@ -337,7 +337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hudPanel: {fileID: 8367013524127426925}
   pauseMenuPanel: {fileID: 7418981008613643709}
-  clearHintPanel: {fileID: 674815334912055213}
+  clearHintPanel: {fileID: 5482007521041225566, guid: e89a468ba29a6ea45a8c1fe26c3278fd, type: 3}
   completeUIPanel: {fileID: 5482007521041225566, guid: fdaabb28b355ebb4986e87756c3f4424, type: 3}
   timerText: {fileID: 5219142344582661224}
   deathCountText: {fileID: 4925130024417245361}
@@ -781,11 +781,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdaabb28b355ebb4986e87756c3f4424, type: 3}
---- !u!1 &674815334912055213 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5482007521041225566, guid: fdaabb28b355ebb4986e87756c3f4424, type: 3}
-  m_PrefabInstance: {fileID: 4992640629923496179}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7818225970655944129 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2969709625725394226, guid: fdaabb28b355ebb4986e87756c3f4424, type: 3}
