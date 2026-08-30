@@ -7,6 +7,7 @@ public class FallingSpike : MonoBehaviour
     private Rigidbody2D rb;
     private Vector3 Position;
 
+
     private void Awake()
     {
         rb= GetComponent<Rigidbody2D>();
