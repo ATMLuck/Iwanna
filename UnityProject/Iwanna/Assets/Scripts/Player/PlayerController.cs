@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
             jumpCount = 0;
         }
 
-        if (Input.GetKeyDown(InputDef.Jump))
+        if (Input.GetKeyDown(InputDef.Jump) || VirtualInput.ConsumeJump())
         {
             if (jumpCount == 0)
             {
@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(InputDef.Shoot))
+        if (Input.GetKeyDown(InputDef.Shoot) || VirtualInput.ConsumeShoot())
         {
             Shoot();
             anim.SetTrigger("AttackTrigger");
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead) return;
 
-        float dirX = Input.GetAxisRaw(InputDef.Horizontal);
+        float dirX = Input.GetAxisRaw(InputDef.Horizontal) + VirtualInput.Horizontal;
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
         if (dirX != 0)
