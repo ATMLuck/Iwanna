@@ -23,6 +23,18 @@ public class MobileInput : MonoBehaviour
     public float spacing = 30f;
 
     private GameObject _canvasRoot;
+    private MobileLayoutConfig _layoutConfig;
+
+    // 布局配置（编辑器工具生成/保存），缺失时退回代码默认
+    private MobileLayoutConfig LayoutConfig
+    {
+        get
+        {
+            if (_layoutConfig == null)
+                _layoutConfig = Resources.Load<MobileLayoutConfig>("MobileLayoutConfig");
+            return _layoutConfig;
+        }
+    }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void CreateInstance()
@@ -78,6 +90,45 @@ public class MobileInput : MonoBehaviour
         }
     }
 
+    //======================== 布局默认值：配置优先，代码默认兜底 =========================
+    private MobileLayoutConfig.ButtonLayout DefaultRightMove => new MobileLayoutConfig.ButtonLayout
+    {
+        id = "RightMove",
+        anchor = MobileLayoutConfig.Anchor.BottomRight,
+        anchoredPosition = new Vector2(-margin.x, margin.y),
+        size = buttonSize
+    };
+
+    private MobileLayoutConfig.ButtonLayout DefaultLeftMove => new MobileLayoutConfig.ButtonLayout
+    {
+        id = "LeftMove",
+        anchor = MobileLayoutConfig.Anchor.BottomRight,
+        anchoredPosition = new Vector2(-margin.x - spacing - buttonSize.x, margin.y),
+        size = buttonSize
+    };
+
+    private MobileLayoutConfig.ButtonLayout DefaultJump => new MobileLayoutConfig.ButtonLayout
+    {
+        id = "Jump",
+        anchor = MobileLayoutConfig.Anchor.BottomLeft,
+        anchoredPosition = new Vector2(margin.x, margin.y),
+        size = buttonSize
+    };
+
+    private MobileLayoutConfig.ButtonLayout DefaultAttack => new MobileLayoutConfig.ButtonLayout
+    {
+        id = "Attack",
+        anchor = MobileLayoutConfig.Anchor.BottomLeft,
+        anchoredPosition = new Vector2(margin.x + spacing + buttonSize.x, margin.y),
+        size = buttonSize
+    };
+
+    private MobileLayoutConfig.ButtonLayout GetLayout(string id, MobileLayoutConfig.ButtonLayout fallback)
+    {
+        var layout = LayoutConfig != null ? LayoutConfig.Get(id) : null;
+        return layout != null ? layout : fallback;
+    }
+
     //=============================== UI 搭建 =============================================
     private GameObject BuildUI()
     {
@@ -96,15 +147,15 @@ public class MobileInput : MonoBehaviour
 
         // ---- 右半区：左右移动（右下角） ----
         CreateMoveButton(root.transform, "RightMoveButton", "UI/Androad/Right",
-            new Vector2(-margin.x, margin.y), 1);
+            GetLayout("RightMove", DefaultRightMove), 1);
         CreateMoveButton(root.transform, "LeftMoveButton", "UI/Androad/Left",
-            new Vector2(-margin.x - spacing - buttonSize.x, margin.y), -1);
+            GetLayout("LeftMove", DefaultLeftMove), -1);
 
         // ---- 左半区：跳跃 + 攻击（左下角） ----
         CreateTouchButton(root.transform, "JumpButton", "UI/Androad/Jump",
-            new Vector2(margin.x, margin.y), TouchButton.ButtonType.Jump);
+            GetLayout("Jump", DefaultJump), TouchButton.ButtonType.Jump);
         CreateTouchButton(root.transform, "AttackButton", "UI/Androad/Fight",
-            new Vector2(margin.x + spacing + buttonSize.x, margin.y), TouchButton.ButtonType.Shoot);
+            GetLayout("Attack", DefaultAttack), TouchButton.ButtonType.Shoot);
 
         return root;
     }
@@ -125,34 +176,35 @@ public class MobileInput : MonoBehaviour
     }
 
     private void CreateMoveButton(Transform parent, string name, string spritePath,
-        Vector2 anchoredPosition, int direction)
+        MobileLayoutConfig.ButtonLayout layout, int direction)
     {
-        var go = CreateButtonBase(parent, name, spritePath, anchoredPosition);
+        var go = CreateButtonBase(parent, name, spritePath, layout);
         var move = go.AddComponent<HoldMoveButton>();
         move.direction = direction;
     }
 
     private void CreateTouchButton(Transform parent, string name, string spritePath,
-        Vector2 anchoredPosition, TouchButton.ButtonType type)
+        MobileLayoutConfig.ButtonLayout layout, TouchButton.ButtonType type)
     {
-        var go = CreateButtonBase(parent, name, spritePath, anchoredPosition);
+        var go = CreateButtonBase(parent, name, spritePath, layout);
         var touch = go.AddComponent<TouchButton>();
         touch.type = type;
     }
 
-    // 底部锚点（左下角 cluster 用 (0,0)，右下角 cluster 用 (1,0)），pivot 跟随锚点
+    // 锚点：右下角 cluster 用 (1,0)，左下角用 (0,0)，pivot 跟随锚点
     private GameObject CreateButtonBase(Transform parent, string name, string spritePath,
-        Vector2 anchoredPosition)
+        MobileLayoutConfig.ButtonLayout layout)
     {
         var go = new GameObject(name, typeof(RectTransform), typeof(Image), typeof(Button));
         go.transform.SetParent(parent, false);
 
         var rt = (RectTransform)go.transform;
-        rt.anchorMin = anchoredPosition.x < 0 ? new Vector2(1f, 0f) : new Vector2(0f, 0f);
+        bool bottomRight = layout.anchor == MobileLayoutConfig.Anchor.BottomRight;
+        rt.anchorMin = bottomRight ? new Vector2(1f, 0f) : new Vector2(0f, 0f);
         rt.anchorMax = rt.anchorMin;
         rt.pivot = rt.anchorMin;
-        rt.sizeDelta = buttonSize;
-        rt.anchoredPosition = anchoredPosition;
+        rt.sizeDelta = layout.size;
+        rt.anchoredPosition = layout.anchoredPosition;
 
         var img = go.GetComponent<Image>();
         img.sprite = Resources.Load<Sprite>(spritePath);
