@@ -5,6 +5,7 @@ using UnityEngine;
 public class Key_Lock2 : MonoBehaviour
 {
     public bool isTrigger = false;
+    public Collider2D c2d;
     bool Trigger = false;
     void Update()
     {
@@ -14,6 +15,9 @@ public class Key_Lock2 : MonoBehaviour
             isTrigger = false;
             MovingPlatform me_component = GetComponent<MovingPlatform>();
             me_component.isMoving = true;
+            Spike sp = GetComponent<Spike>();
+            sp.enabled = false;
+            c2d.isTrigger = false;
         }
         
     }
