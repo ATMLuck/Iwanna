@@ -3,22 +3,24 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Bullet
+  - Moving
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - BackGround
   - Water
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Ground
+  - Damage
+  - Bullet
+  - Button
+  - Trigger
   - 
   - 
   - 
@@ -40,4 +42,25 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackGround
+    uniqueID: 3202861679
+    locked: 0
+  - name: Ground
+    uniqueID: 2588840319
+    locked: 0
+  - name: Damage
+    uniqueID: 2299157991
+    locked: 0
+  - name: Bullet
+    uniqueID: 582816223
+    locked: 0
+  - name: Button
+    uniqueID: 968249961
+    locked: 0
+  - name: Trigger
+    uniqueID: 3193576907
+    locked: 0
+  - name: Player
+    uniqueID: 2935410167
     locked: 0
