@@ -12,7 +12,7 @@ public class ButtonHoverColor : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     [Header("颜色设置")]
     public Color normalColor = Color.white;
-    public Color highlightedColor = new Color(1f, 0.85f, 0.4f); // 默认给个金色，自己按需改
+    public Color highlightedColor = new Color(1f, 0.85f, 0.4f); // 默认给个金色
 
     public void OnPointerEnter(PointerEventData eventData)
     {

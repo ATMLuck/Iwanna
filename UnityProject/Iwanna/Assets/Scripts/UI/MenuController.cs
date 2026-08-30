@@ -26,10 +26,7 @@ public class MenuController : MonoBehaviour
         if (levelSelectPanel != null) levelSelectPanel.SetActive(false);
         InitVolumeSliders();
     }
-
-    /// <summary>
-    /// 初始化音量滑动条：用已保存的音量刷新滑动条并应用到 AudioManager
-    /// </summary>
+    // 初始化音量滑动条：用已保存的音量刷新滑动条并应用到 AudioManager
     private void InitVolumeSliders()
     {
         if (ProgressManager.Instance == null) return;

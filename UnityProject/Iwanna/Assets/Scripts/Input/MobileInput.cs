@@ -3,11 +3,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-/// <summary>
-/// 移动端触摸控制 UI：程序化搭建 Canvas + 虚拟按键，运行时自动创建并常驻。
-/// 仅在移动平台且处于关卡场景时显示；PC / 编辑器默认隐藏，不影响 Windows 构建。
-/// 布局：右半区左右移动按钮，左半区跳跃 + 攻击按钮。
-/// </summary>
 public class MobileInput : MonoBehaviour
 {
     [Header("调试")]

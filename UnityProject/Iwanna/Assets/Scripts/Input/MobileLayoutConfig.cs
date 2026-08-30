@@ -1,11 +1,9 @@
 using System;
 using UnityEngine;
 
-/// <summary>
-/// 移动端触摸按钮的布局配置。
-/// 由编辑器工具（Tools/MobileUI）生成/保存，运行时 MobileInput 读取。
-/// 放在 Resources 下以支持 Resources.Load 加载。
-/// </summary>
+// 移动端触摸按钮的布局配置。
+// 由编辑器工具（Tools/MobileUI）生成/保存，运行时 MobileInput 读取。
+// 放在 Resources 下以支持 Resources.Load 加载。
 [CreateAssetMenu(fileName = "MobileLayoutConfig", menuName = "MobileUI/布局配置")]
 public class MobileLayoutConfig : ScriptableObject
 {

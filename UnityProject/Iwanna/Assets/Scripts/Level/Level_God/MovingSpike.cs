@@ -6,13 +6,13 @@ public class MovingSpike : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Vector3 Position;
-    [Header("速度控制")]
+    [Header("閫熷害鎺у埗")]
     public float Rspeed=50;
     public float upspeed=0;
     public float Limit_y=0;
     public float Limit_x=0;
 
-    [Header("移动到的位置")]
+    [Header("绉诲姩鍒扮殑浣嶇疆")]
     public float position_x=0;
     public float position_y=0;
 

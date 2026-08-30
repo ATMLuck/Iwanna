@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class RotateAndMove : MonoBehaviour
 {
-    [Header("Ä¿±êÉèÖÃ")]
+    [Header("ç›®æ ‡è®¾ç½®")]
     [SerializeField] private Vector3 targetPosition = new Vector3(5f, 0f, 5f);
     [SerializeField] private float arrivalDistance = 0.05f;
 
-    [Header("ÒÆ¶¯ÓëĞı×ª")]
+    [Header("ç§»åŠ¨ä¸æ—‹è½¬")]
     [SerializeField] private float moveSpeed = 3f;
-    [SerializeField] private float rotateSpeed = 180f;      // ¶È/Ãë
-    [SerializeField] private bool clockwise = true;         // true=Ë³Ê±Õë£¬false=ÄæÊ±Õë
+    [SerializeField] private float rotateSpeed = 180f;      // åº¦/ç§’
+    [SerializeField] private bool clockwise = true;         // true=é¡ºæ—¶é’ˆï¼Œfalse=é€†æ—¶é’ˆ
     [SerializeField] private bool keepRotatingAfterArrival = false;
 
-    [Header("µ½´ï»Øµ÷£¨¿É½Ó EventCenter£©")]
+    [Header("åˆ°è¾¾å›è°ƒï¼ˆå¯æ¥ EventCenterï¼‰")]
     public System.Action OnArrived;
 
     private bool isActive = false;
@@ -47,9 +47,9 @@ public class RotateAndMove : MonoBehaviour
 
     private void Spin()
     {
-        // ¡ª¡ª ºËĞÄ¸Ä¶¯£ºÈÆ Z Öá×ª£¬ÆÁÄ»ÉÏ¿´¾ÍÊÇË³/ÄæÊ±Õë ¡ª¡ª
+        // â€”â€” æ ¸å¿ƒæ”¹åŠ¨ï¼šç»• Z è½´è½¬ï¼Œå±å¹•ä¸Šçœ‹å°±æ˜¯é¡º/é€†æ—¶é’ˆ â€”â€”
         float angle = rotateSpeed * Time.deltaTime;
-        if (clockwise) angle = -angle;   // Unity ÀïÕı Z ½ÇÊÇÄæÊ±Õë£¬¸º²ÅÊÇË³Ê±Õë
+        if (clockwise) angle = -angle;   // Unity é‡Œæ­£ Z è§’æ˜¯é€†æ—¶é’ˆï¼Œè´Ÿæ‰æ˜¯é¡ºæ—¶é’ˆ
         transform.Rotate(0f, 0f, angle);
     }
 
@@ -69,9 +69,9 @@ public class RotateAndMove : MonoBehaviour
     private void OnEnable() => EventCenter.Subscribe(GameEvent.PlayerRespawned, Restore);
     private void OnDisable() => EventCenter.Unsubscribe(GameEvent.PlayerRespawned, Restore);
 
-    // ÔËĞĞÊ±ÇĞ·½Ïò£¬·½±ãµ÷ÊÔ
+    // è¿è¡Œæ—¶åˆ‡æ–¹å‘ï¼Œæ–¹ä¾¿è°ƒè¯•
     public void SetClockwise(bool isClockwise) => clockwise = isClockwise;
-    // ¡ª¡ª ¢Ù ÔÚ×Ö¶ÎÉùÃ÷Çø£¨Awake Àï»º´æ³õÊ¼Î»×Ë£©¡ª¡ª
+    // â€”â€” â‘  åœ¨å­—æ®µå£°æ˜åŒºï¼ˆAwake é‡Œç¼“å­˜åˆå§‹ä½å§¿ï¼‰â€”â€”
     private Vector3 initialPosition;
     private Quaternion initialRotation;
 
@@ -81,7 +81,7 @@ public class RotateAndMove : MonoBehaviour
         initialRotation = transform.rotation;
     }
 
-    // ¡ª¡ª ¢Ú ¼ÓÕâ¸ö Restore º¯Êı£¬ÆäËûÒ»¸Å²»¶¯ ¡ª¡ª
+    // â€”â€” â‘¡ åŠ è¿™ä¸ª Restore å‡½æ•°ï¼Œå…¶ä»–ä¸€æ¦‚ä¸åŠ¨ â€”â€”
     public void Restore(object arg)
     {
         transform.SetPositionAndRotation(initialPosition, initialRotation);

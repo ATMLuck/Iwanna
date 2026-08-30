@@ -1,8 +1,6 @@
 using UnityEngine;
 
-/// <summary>
-/// 触摸输入共享状态：PC 键鼠与移动端触摸按钮共用同一输入通道。
-/// </summary>
+// 触摸输入共享状态：PC 键鼠与移动端触摸按钮共用同一输入通道。
 public static class VirtualInput
 {
     public static bool MoveLeftHeld;

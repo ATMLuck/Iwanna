@@ -23,8 +23,8 @@ public class Parallax : MonoBehaviour
     private float ClippingPlane =>
         cam.transform.position.z + (DistanceFromSubject > 0 ? cam.farClipPlane : cam.nearClipPlane);
 
-    // 视差系数：离摄像机越远（占裁剪范围比例越大），移动速度越接近摄像机本身（几乎不动）；
-    // 离角色越近，系数越接近0，几乎不随摄像机移动（因为它就是游戏发生的那个平面）
+    // 视差系数：离摄像机越远（占裁剪范围比例越大），移动速度越接近摄像机本身；
+    // 离角色越近，系数越接近0，几乎不随摄像机移动
     private float ParallaxFactor => Mathf.Abs(DistanceFromSubject) / ClippingPlane;
 
     void Start()

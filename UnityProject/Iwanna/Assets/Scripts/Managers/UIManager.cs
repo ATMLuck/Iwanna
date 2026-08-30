@@ -6,10 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static System.Net.Mime.MediaTypeNames;
 
-/// <summary>
-/// 全局常驻 UI 管理器 (负责关卡内叠加 UI：HUD、暂停面板、通关提示、终极通关UI)
-/// 架构分工：C 角色 (UI + 美术)
-/// </summary>
+// 全局常驻 UI 管理器 (负责关卡内叠加 UI：HUD、暂停面板、通关提示、终极通关UI)
 public class UIManager : Singleton<UIManager>
 {
     [Header("UI 面板引用 (挂载在 Canvas 下)")]
@@ -35,10 +32,7 @@ public class UIManager : Singleton<UIManager>
         EventCenter.Subscribe(GameEvent.TimerTick, OnTimerTick);
         EventCenter.Subscribe(GameEvent.DeathCountChanged, OnDeathCountChanged);
     }
-
-    /// <summary>
-    /// 保证场景中存在常驻 EventSystem，否则 UI 按钮无法响应点击
-    /// </summary>
+    // 保证场景中存在常驻 EventSystem，否则 UI 按钮无法响应点击
     private void EnsureEventSystem()
     {
         var existing = FindObjectOfType<EventSystem>();
@@ -57,9 +51,7 @@ public class UIManager : Singleton<UIManager>
         DontDestroyOnLoad(go);
     }
 
-    /// <summary>
-    /// 切换场景后清理场景里新生成的 EventSystem，只保留常驻的那一个
-    /// </summary>
+    // 切换场景后清理场景里新生成的 EventSystem，只保留常驻的那一个
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         var eventSystems = FindObjectsOfType<EventSystem>();
@@ -82,9 +74,7 @@ public class UIManager : Singleton<UIManager>
 
     #region 架构文档规定的对外接口 (由 GameManager 调用)
 
-    /// <summary>
-    /// 显示右上角 HUD (进关卡 / 恢复游戏)
-    /// </summary>
+    // 显示右上角 HUD (进关卡 / 恢复游戏)
     public void ShowHUD()
     {
         
@@ -95,36 +85,28 @@ public class UIManager : Singleton<UIManager>
             
     }
 
-    /// <summary>
-    /// 隐藏右上角 HUD (暂停 / 切场景)
-    /// </summary>
+    // 隐藏右上角 HUD (暂停 / 切场景)
     public void HideHUD()
     {
         if (hudPanel != null)
             hudPanel.SetActive(false);
     }
 
-    /// <summary>
-    /// 显示暂停面板 (GameManager.PauseGame() 调用)
-    /// </summary>
+    // 显示暂停面板 (GameManager.PauseGame() 调用)
     public void ShowPauseMenu()
     {
         if (pauseMenuPanel != null)
             pauseMenuPanel.SetActive(true);
     }
 
-    /// <summary>
-    /// 隐藏暂停面板 (GameManager.ResumeGame() 调用)
-    /// </summary>
+    // 隐藏暂停面板 (GameManager.ResumeGame() 调用)
     public void HidePauseMenu()
     {
         if (pauseMenuPanel != null)
             pauseMenuPanel.SetActive(false);
     }
 
-    /// <summary>
-    /// 显示"通关！"简短提示 (非最后一关通关时由 GameManager 调用)
-    /// </summary>
+    // 显示"通关！"简短提示 (非最后一关通关时由 GameManager 调用)
     public void ShowClearHint()
     {
         if (clearHintPanel != null)
@@ -136,9 +118,7 @@ public class UIManager : Singleton<UIManager>
             clearHintPanel.SetActive(false);
     }
 
-    /// <summary>
-    /// 显示通关 UI (最后一关通关，含返回主菜单按钮)
-    /// </summary>
+    // 显示通关 UI (最后一关通关，含返回主菜单按钮)
     public void ShowCompleteUI()
     {
         if (completeUIPanel != null)
@@ -154,9 +134,7 @@ public class UIManager : Singleton<UIManager>
 
     #region 事件广播回调
 
-    /// <summary>
-    /// 刷新计时器 (响应 GameEvent.TimerTick 事件)
-    /// </summary>
+    // 刷新计时器 (响应 GameEvent.TimerTick 事件)
     private void OnTimerTick(object arg)
     {
         if (arg is float elapsedTime)
@@ -172,9 +150,7 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    /// <summary>
-    /// 刷新死亡次数 (响应 GameEvent.DeathCountChanged 事件)
-    /// </summary>
+    // 刷新死亡次数 (响应 GameEvent.DeathCountChanged 事件)
     private void OnDeathCountChanged(object arg)
     {
         if (arg is int count)

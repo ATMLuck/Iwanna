@@ -3,13 +3,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-/// <summary>
-/// 移动端触摸按钮布局编辑器工具：
-/// 1. 生成编辑画布 —— 在场景里生成可拖拽的 4 个按钮
-/// 2. 保存布局     —— 把按钮坐标写进 MobileLayoutConfig 资源
-/// 3. 删除编辑画布 —— 清理占位画布
-/// 使用流程：生成 -> 拖拽调整 -> 保存 -> 删除（或直接进 Play，画布会自动清理）
-/// </summary>
+// 移动端触摸按钮布局编辑器工具：
+// 1. 生成编辑画布 —— 在场景里生成可拖拽的 4 个按钮
+// 2. 保存布局     —— 把按钮坐标写进 MobileLayoutConfig 资源
+// 3. 删除编辑画布 —— 清理占位画布
+// 使用流程：生成 -> 拖拽调整 -> 保存 -> 删除（或直接进 Play，画布会自动清理）
+// </summary>
 public static class MobileUIEditorTools
 {
     private const string ConfigPath = "Assets/Resources/MobileLayoutConfig.asset";

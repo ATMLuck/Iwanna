@@ -6,7 +6,7 @@ public class FallingSensor : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // ÏòÉÏÍ¨Öª¸¸ÎïÌå
+        // å‘ä¸Šé€šçŸ¥çˆ¶ç‰©ä½“
         SendMessageUpwards("OnSensorTriggerEnter", other, SendMessageOptions.DontRequireReceiver);
     }
 }

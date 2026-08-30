@@ -3,11 +3,11 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class movingPlatform : MonoBehaviour
 {
-    [Header("Íù·µ¶Ëµã£¨Ïà¶ÔÆ½Ì¨µ±Ç°Î»ÖÃµÄÆ«ÒÆ£©")]
+    [Header("å¾€è¿”ç«¯ç‚¹ï¼ˆç›¸å¯¹å¹³å°å½“å‰ä½ç½®çš„åç§»ï¼‰")]
     [SerializeField] private Vector2 offsetA = new Vector2(-3f, 0f);
     [SerializeField] private Vector2 offsetB = new Vector2(3f, 0f);
 
-    [Header("ÔË¶¯²ÎÊı")]
+    [Header("è¿åŠ¨å‚æ•°")]
     [SerializeField, Min(0f)] private float moveSpeed = 2f;
     [SerializeField, Min(0f)] private float waitAtEnds = 0.3f;
 
@@ -18,16 +18,16 @@ public class movingPlatform : MonoBehaviour
     private void Start()
     {
         _startPos = transform.position;
-        _targetPos = _startPos + (Vector3)offsetA;   // Æğ²½ÏÈÍù A ×ß
+        _targetPos = _startPos + (Vector3)offsetA;   // èµ·æ­¥å…ˆå¾€ A èµ°
     }
 
     private void Update()
     {
-        // 1) ³¯Ä¿±êÔÈËÙ×ß
+        // 1) æœç›®æ ‡åŒ€é€Ÿèµ°
         transform.position = Vector3.MoveTowards(
             transform.position, _targetPos, moveSpeed * Time.deltaTime);
 
-        // 2) µ½ÁË¶Ëµã ¡ú µÈÒ»ÏÂ ¡ú ÇĞ·½Ïò
+        // 2) åˆ°äº†ç«¯ç‚¹ â†’ ç­‰ä¸€ä¸‹ â†’ åˆ‡æ–¹å‘
         if (Vector2.Distance(transform.position, _targetPos) < 0.01f)
         {
             _waitTimer += Time.deltaTime;

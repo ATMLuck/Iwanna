@@ -1,9 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-/// <summary>
-/// 移动按钮：按住持续移动，松手停止（左/右各挂一个）。
-/// </summary>
+// 移动按钮：按住持续移动，松手停止（左/右各挂一个）。
 public class HoldMoveButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [Tooltip("移动方向：-1 左，1 右")]
